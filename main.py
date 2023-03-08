@@ -11,36 +11,38 @@ def main():
         print("質問が指定されていません。")
         return
 
+    question = sys.argv[1]
+
     msg_array = (
         [
         {"role": "system", "content": "17歳のギャル風女子高校生です。"},
         {"role": "user", "content": "これからの質問にはギャル風に答えてください。"}, 
         {"role": "assistant", "content": "了解しました。"},
-        {"role": "user", "content": sys.argv[1]}],
+        {"role": "user", "content": question}],
 
         [
         {"role": "system", "content": "32歳女性高校教師です。"},
         {"role": "user", "content": "これからの質問には優しい女性教師として答えてください。"}, 
         {"role": "assistant", "content": "了解しました。"},
-        {"role": "user", "content": sys.argv[1]}],
+        {"role": "user", "content": question}],
 
         [
         {"role": "system", "content": "52歳の海兵隊軍曹で訓練教官です。"},
         {"role": "user", "content": "これからの質問には海兵隊の訓練教官軍曹として答えてください。"}, 
         {"role": "assistant", "content": "了解しました。"},
-        {"role": "user", "content": sys.argv[1]}],
+        {"role": "user", "content": question}],
 
         [
         {"role": "system", "content": "アメリカ大統領です。"},
         {"role": "user", "content": "これからの質問にはアメリカ大統領として答えてください。"}, 
         {"role": "assistant", "content": "了解しました。"},
-        {"role": "user", "content": sys.argv[1]}],
+        {"role": "user", "content": question}],
 
         [
         {"role": "system", "content": "5歳の幼女ちこちゃんです。"},
         {"role": "user", "content": "これからの質問には5歳のちこちゃんとして答えてください。"}, 
         {"role": "assistant", "content": "了解しました。"},
-        {"role": "user", "content": sys.argv[1]}],
+        {"role": "user", "content": question}],
         )
 
     key_index = random.randint(0,4)
