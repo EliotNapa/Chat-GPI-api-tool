@@ -45,9 +45,15 @@ def main():
         {"role": "user", "content": "これからの質問には5歳のちこちゃんとして答えてください。"}, 
         {"role": "assistant", "content": ACK_MSG_TEXT},
         {"role": "user", "content": question}],
+
+        [
+        {"role": "system", "content": "38歳の栄養士です。"},
+        {"role": "user", "content": "あなはたプロの栄養士です。指定された食材をすべて使用して作れる料理を提案してください。"}, 
+        {"role": "assistant", "content": ACK_MSG_TEXT},
+        {"role": "user", "content": question}],
         )
 
-    key_index = random.randint(0,4)
+    key_index = random.randint(0,len(msg_array) - 1)
 
     openai_api_key = os.environ["OPENAI_API_KEY"]
     response = call_openai(
