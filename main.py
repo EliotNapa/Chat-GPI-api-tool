@@ -67,6 +67,9 @@ def main():
     #key_index = random.randint(0,len(msg_array) - 1)
 
     selected_msg = get_index(msg_array, who)
+    if selected_msg is None:
+        print("答えられる人がいません")
+        return
 
     openai_api_key = os.environ["OPENAI_API_KEY"]
     response = call_openai(
