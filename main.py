@@ -6,12 +6,23 @@ import re
 import openai
 from typing import List, Dict
 
+def get_index(msg_ary, key):
+    ret_ary = None
+    for msg_pack in msg_ary:
+        if key in msg_pack[0]["content"]:
+            ret_ary = msg_pack
+            break
+    return ret_ary
+
+
+
 def main():
-    if len(sys.argv) != 2:
-        print("質問が指定されていません。")
+    if len(sys.argv) != 3:
+        print("使い方:python main.py 回答者 質問")
         return
 
-    question = sys.argv[1]
+    who = sys.argv[1]
+    question = sys.argv[2]
 
     ACK_MSG_TEXT = "了解しました。"
 
@@ -53,25 +64,29 @@ def main():
         {"role": "user", "content": question}],
         )
 
-    key_index = random.randint(0,len(msg_array) - 1)
+    #key_index = random.randint(0,len(msg_array) - 1)
+
+    selected_msg = get_index(msg_array, who)
 
     openai_api_key = os.environ["OPENAI_API_KEY"]
     response = call_openai(
         api_key=openai_api_key,
-        messages=msg_array[key_index],
+        # messages=msg_array[key_index],
+        messages=selected_msg,
         user="main.py",
     )
     assistant_reply: Dict[str, str] = response["choices"][0]["message"]
     assistant_reply_text = format_assistant_reply(assistant_reply["content"])
-    print(msg_array[key_index][0]['content'])
+    # print(msg_array[key_index][0]['content'])
     print(assistant_reply_text)
+    print(selected_msg[0]["content"])
 
 
 
 def call_openai(api_key: str, messages: List[Dict[str, str]], user: str):
     return openai.ChatCompletion.create(
         api_key=api_key,
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0301",
         messages=messages,
         top_p=1,
         n=1,
